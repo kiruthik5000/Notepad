@@ -31,9 +31,8 @@ const App = () => {
     } catch (error) {
         console.log(error)
     }
-
-    setNewNote("");
     isAdd(false);
+    setNewNote("");
   };
 
   return (
@@ -52,7 +51,6 @@ const App = () => {
 
       <div className="cont">
         <div className="add" onClick={() => isAdd(!add)}>+</div>
-
         {add && (
           <div className="addnotes">
             <textarea

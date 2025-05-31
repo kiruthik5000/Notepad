@@ -99,3 +99,6 @@ body {
   font-weight: bold;
 }
 
+.addnotes button:hover{
+  transform: scale(1.05);
+}
