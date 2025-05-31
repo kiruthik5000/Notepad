@@ -54,7 +54,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  z-index: 1000;
+  z-index: 1000; /* to show the add button above the notes */
 }
 
 .add:hover {
