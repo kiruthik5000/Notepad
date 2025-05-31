@@ -5,33 +5,35 @@ import './App.css';
 const App = () => {
   const [add, isAdd] = useState(false);
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState("");
+  const [newNote, setNewNote] = useState("");// for status messages
 
   useEffect(() => {
     const fetchAll = async () => {
       try {
         const res = await axios.get('http://localhost:5000/getall');
         setNotes(res.data);
-        console.log(res.data);
       } catch (error) {
-        console.error("Error fetching notes:", error);
+        console.error(error);
       }
     };
-
     fetchAll();
-  }, []); 
+  }, []);
 
   const handleAddNote = async () => {
     if (newNote.trim() === "") return;
-    setNotes([...notes, newNote]);
-    try{
-        const res = await axios.post('http://localhost:5000/add', {text:newNote})
-        console.log(res.data)
-    }catch{
-        console.log("error")
-    }finally{
-        isAdd(false)
+
+    try {
+      const res = await axios.post('http://localhost:5000/add', {
+        text: newNote,
+      });
+
+      setNotes([...notes, { text: newNote }]); // or refetch after post
+    } catch (error) {
+        console.log(error)
     }
+
+    setNewNote("");
+    isAdd(false);
   };
 
   return (
@@ -43,7 +45,7 @@ const App = () => {
       <div className="notes">
         {notes.map((note, index) => (
           <div key={index} className="note-box">
-            {typeof note === "string" ? note : note.text}
+            {note.text || note}
           </div>
         ))}
       </div>
